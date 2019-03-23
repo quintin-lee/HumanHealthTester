@@ -128,7 +128,15 @@ static int8_t ICACHE_FLASH_ATTR gizCheckReport(dataPoint_t *cur, dataPoint_t *la
     }
     currentTime = gizGetTimerCount();
 
-    if(last->valuehigh != cur->valuehigh)
+    if(last->valuetemperature != cur->valuetemperature)
+    {
+        if(currentTime - lastReportTime >= REPORT_TIME_MAX)
+        {
+            GIZWITS_LOG("valuetemperature Changed\n");
+            ret = 1;
+        }
+    }
+    if(0 != memcmp((uint8_t *)&last->valuehigh,(uint8_t *)&cur->valuehigh,sizeof(last->valuehigh)))
     {
         if(currentTime - lastReportTime >= REPORT_TIME_MAX)
         {
@@ -136,7 +144,7 @@ static int8_t ICACHE_FLASH_ATTR gizCheckReport(dataPoint_t *cur, dataPoint_t *la
             ret = 1;
         }
     }
-    if(last->valuelow != cur->valuelow)
+    if(0 != memcmp((uint8_t *)&last->valuelow,(uint8_t *)&cur->valuelow,sizeof(last->valuelow)))
     {
         if(currentTime - lastReportTime >= REPORT_TIME_MAX)
         {
@@ -144,7 +152,7 @@ static int8_t ICACHE_FLASH_ATTR gizCheckReport(dataPoint_t *cur, dataPoint_t *la
             ret = 1;
         }
     }
-    if(last->valuepulse != cur->valuepulse)
+    if(0 != memcmp((uint8_t *)&last->valuepulse,(uint8_t *)&cur->valuepulse,sizeof(last->valuepulse)))
     {
         if(currentTime - lastReportTime >= REPORT_TIME_MAX)
         {
@@ -179,12 +187,13 @@ static int8_t ICACHE_FLASH_ATTR gizDataPoints2ReportData(dataPoint_t *dataPoints
 
 
 
-    devStatusPtr->valuehigh = exchangeBytes(gizY2X(high_RATIO,  high_ADDITION, dataPoints->valuehigh)); 
-    devStatusPtr->valuelow = exchangeBytes(gizY2X(low_RATIO,  low_ADDITION, dataPoints->valuelow)); 
-    devStatusPtr->valuepulse = exchangeBytes(gizY2X(pulse_RATIO,  pulse_ADDITION, dataPoints->valuepulse)); 
+    devStatusPtr->valuetemperature = exchangeBytes(gizY2XFloat(temperature_RATIO,  temperature_ADDITION, dataPoints->valuetemperature));     
 
 
 
+    gizMemcpy((uint8_t *)devStatusPtr->valuehigh,(uint8_t *)&dataPoints->valuehigh,sizeof(dataPoints->valuehigh));
+    gizMemcpy((uint8_t *)devStatusPtr->valuelow,(uint8_t *)&dataPoints->valuelow,sizeof(dataPoints->valuelow));
+    gizMemcpy((uint8_t *)devStatusPtr->valuepulse,(uint8_t *)&dataPoints->valuepulse,sizeof(dataPoints->valuepulse));
     return 0;
 }
 

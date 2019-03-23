@@ -19,9 +19,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 #include <stdint.h>
-#include <stm32f4xx.h>
 #include "gizwits_protocol.h"
 
 /**
@@ -29,94 +27,25 @@ extern "C" {
 */
 #define SOFTWARE_VERSION "03030000"
 /**
-* MCU hardware version
+* MCU Hardware version
 */
 #define HARDWARE_VERSION "03010100"
 
-
 /**
-* Communication module model
+* Communication module type
 */
 #define MODULE_TYPE 0 //0,WIFI ;1,GPRS
 
 
-/**@name TIM3 related macro definition
-* @{
-*/
-#define TIMER 					TIM3
-#define TIMER_IRQ 				TIM3_IRQn
-#define TIMER_RCC 				RCC_APB1Periph_TIM3
-#define TIMER_IRQ_FUN 			TIM3_IRQHandler
-/**@} */
-
-/**@name USART related macro definition
-* @{
-*/
-#define UART_BAUDRATE 			9600
-#define UART_PORT     			2
-#define UART          			USART2
-#define UART_IRQ      			USART2_IRQn
-#define UART_IRQ_FUN  			USART2_IRQHandler
-
-#if (UART_PORT == 1)
-#define UART_GPIO_Cmd          RCC_APB2PeriphClockCmd
-#define UART_GPIO_CLK          RCC_APB2Periph_GPIOA
-
-#define UART_AFIO_Cmd          RCC_APB2PeriphClockCmd
-#define UART_AFIO_CLK          RCC_APB2Periph_AFIO
-
-#define UART_CLK_Cmd           RCC_APB2PeriphClockCmd
-#define UART_CLK               RCC_APB2Periph_USART1 
-
-#define UART_GPIO_PORT         GPIOA
-#define UART_RxPin             GPIO_Pin_10
-#define UART_TxPin             GPIO_Pin_9
-#endif
-
-#if (UART_PORT == 2)
-#define UART_GPIO_Cmd          RCC_APB2PeriphClockCmd
-#define UART_GPIO_CLK          RCC_APB2Periph_GPIOA
-
-#define UART_AFIO_Cmd          RCC_APB2PeriphClockCmd
-#define UART_AFIO_CLK          RCC_APB2Periph_AFIO
-
-#define UART_CLK_Cmd           RCC_APB1PeriphClockCmd
-#define UART_CLK               RCC_APB1Periph_USART2 
-
-#define UART_GPIO_PORT         GPIOA
-#define UART_RxPin             GPIO_Pin_3
-#define UART_TxPin             GPIO_Pin_2
-#endif
 
 
-#if (UART_PORT == 3)
 
-#define UART_GPIO_Cmd          RCC_APB2PeriphClockCmd
-#define UART_GPIO_CLK          RCC_APB2Periph_GPIOC
-
-#define UART_AFIO_Cmd          RCC_APB2PeriphClockCmd
-#define UART_AFIO_CLK          RCC_APB2Periph_AFIO
-
-#define UART_CLK_Cmd           RCC_APB1PeriphClockCmd
-#define UART_CLK               RCC_APB1Periph_USART3 
-
-#define UART_GPIO_PORT         GPIOC
-#define UART_RxPin             GPIO_Pin_11
-#define UART_TxPin             GPIO_Pin_10
-
-#endif
-/**@} */
-
-/** User area the current device state structure*/
 extern dataPoint_t currentDataPoint;
 
-void gizTimerMs(void);
-void timerInit(void);
-void uartInit(void);
 void userInit(void);
 void userHandle(void);
 void mcuRestart(void);
-uint32_t gizGetTimerCount(void);
+void gizTimerMs(void);
 int32_t uartWrite(uint8_t *buf, uint32_t len);
 int8_t gizwitsEventProcess(eventInfo_t *info, uint8_t *data, uint32_t len);
 

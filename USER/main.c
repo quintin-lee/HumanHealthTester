@@ -16,13 +16,14 @@
 //淘宝店铺：http://eboard.taobao.com
 //广州市星翼电子科技有限公司  
 //作者：正点原子 @ALIENTEK
-
+extern uint8_t wifi_sta;
 
 int main(void)
 { 
     //u8 high, low, pluse;
 	//u8 x=0;
 	int key;
+    u8 conn_sta = 0;
 	
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置系统中断优先级分组2
 	delay_init(168);		//延时初始化 
@@ -42,7 +43,13 @@ int main(void)
 	{
         userHandle();//用户采集
 		gizwitsHandle((dataPoint_t *)&currentDataPoint);//协议处理
-        delay_ms(6000);
+        //delay_ms(6000);
+        
+        if (conn_sta != wifi_sta)
+        {
+            wifi_sta ? printf("connect ok\r\n") : printf("disconnect \r\n");
+            conn_sta = wifi_sta;
+        }
 		
 		key = KEY_Scan(0);
 		if(key==KEY1_PRES)//KEY1按键

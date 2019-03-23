@@ -1,33 +1,30 @@
 /**
 ************************************************************
 * @file         gizwits_product.c
-* @brief        Gizwits control protocol processing, and platform-related       hardware initialization 
+* @brief        Gizwits control protocol processing, and platform-related hardware initialization 
 * @author       Gizwits
 * @date         2017-07-19
 * @version      V03030000
 * @copyright    Gizwits
-* 
-* @note         机智云.只为智能硬件而生
-*               Gizwits Smart Cloud  for Smart Products
-*               链接|增值ֵ|开放|中立|安全|自有|自由|生态
+*
+* @note         Gizwits is only for smart hardware
+*               Gizwits Smart Cloud for Smart Products
+*               Links | Value Added | Open | Neutral | Safety | Own | Free | Ecology
 *               www.gizwits.com
 *
 ***********************************************************/
-
 #include <stdio.h>
 #include <string.h>
 #include "gizwits_product.h"
-#include "common.h"
 #include "MKB0803.h"
 #include "lcd.h"
 #include "usart2.h"
 
 static uint32_t timerMsCount;
-uint8_t aRxBuffer;
 
-/** User area the current device state structure*/
+/** Current datapoint */
 dataPoint_t currentDataPoint;
-
+uint8_t wifi_sta = 0;
 
 /**@} */
 /**@name Gizwits User Interface
@@ -52,7 +49,7 @@ dataPoint_t currentDataPoint;
 int8_t gizwitsEventProcess(eventInfo_t *info, uint8_t *gizdata, uint32_t len)
 {
   uint8_t i = 0;
-  dataPoint_t *dataPointPtr = (dataPoint_t *)gizdata;
+  //dataPoint_t *dataPointPtr = (dataPoint_t *)gizdata;
   moduleStatusInfo_t *wifiData = (moduleStatusInfo_t *)gizdata;
   protocolTime_t *ptime = (protocolTime_t *)gizdata;
   
@@ -88,9 +85,10 @@ int8_t gizwitsEventProcess(eventInfo_t *info, uint8_t *gizdata, uint32_t len)
  
         break;
       case WIFI_CON_M2M:
- 
+        wifi_sta = 1;
         break;
       case WIFI_DISCON_M2M:
+        wifi_sta = 0;
         break;
       case WIFI_RSSI:
         GIZWITS_LOG("RSSI %d\n", wifiData->rssi);
@@ -131,7 +129,7 @@ int8_t gizwitsEventProcess(eventInfo_t *info, uint8_t *gizdata, uint32_t len)
 */
 void userHandle(void)
 {
-    if (!MKB0803_ReadData((u8*)&(currentDataPoint.valuehigh), 
+    if (wifi_sta && !MKB0803_ReadData((u8*)&(currentDataPoint.valuehigh), 
                      (u8*)&(currentDataPoint.valuelow), 
                      (u8*)&(currentDataPoint.valuepulse)))
     {
@@ -139,15 +137,26 @@ void userHandle(void)
 		LCD_ShowString(30,40,210,24,24,(u8*)"high:");	
 		LCD_ShowString(30,70,220,24,24,(u8*)"low:");
 		LCD_ShowString(30,100,230,24,24,(u8*)"heart:");
-		LCD_ShowNum(90,40,currentDataPoint.valuehigh,3,24);	
-		LCD_ShowNum(90,70,currentDataPoint.valuelow,3,24);
-		LCD_ShowNum(100,100,currentDataPoint.valuepulse,3,24);
+		LCD_ShowNum(90,40,currentDataPoint.valuehigh[0],3,24);	
+		LCD_ShowNum(90,70,currentDataPoint.valuelow[0],3,24);
+		LCD_ShowNum(100,100,currentDataPoint.valuepulse[0],3,24);
+    }
+    else
+    {
+        currentDataPoint.valuetemperature = 38.0;
+        *currentDataPoint.valuehigh = 0;
+        *currentDataPoint.valuelow = 0;
+        *currentDataPoint.valuepulse = 0;
     }
  /*
-    currentDataPoint.valuehigh = ;//Add Sensor Data Collection
-    currentDataPoint.valuelow = ;//Add Sensor Data Collection
-    currentDataPoint.valuepulse = ;//Add Sensor Data Collection
+    currentDataPoint.valuetemperature = ;//Add Sensor Data Collection
 
+    //XXX is Extend Datapoint Address ,User defined
+    memcpy((uint8_t *)currentDataPoint.valuehigh,XXX,sizeof(currentDataPoint.valuehigh));
+    //XXX is Extend Datapoint Address ,User defined
+    memcpy((uint8_t *)currentDataPoint.valuelow,XXX,sizeof(currentDataPoint.valuelow));
+    //XXX is Extend Datapoint Address ,User defined
+    memcpy((uint8_t *)currentDataPoint.valuepulse,XXX,sizeof(currentDataPoint.valuepulse));
     */
     
 }
@@ -162,19 +171,22 @@ void userHandle(void)
 */
 void userInit(void)
 {
+    usart3_init(9600);
     memset((uint8_t*)&currentDataPoint, 0, sizeof(dataPoint_t));
     
     /** Warning !!! DataPoint Variables Init , Must Within The Data Range **/ 
-    usart3_init(115200);
-    currentDataPoint.valuehigh = 0;
-    currentDataPoint.valuelow = 0;
-    currentDataPoint.valuepulse = 0;
+    currentDataPoint.valuetemperature = 37.0;
+    *currentDataPoint.valuehigh = 0;
+    *currentDataPoint.valuelow = 0;
+    *currentDataPoint.valuepulse = 0;
 
 }
 
 
 /**
-* @brief Millisecond timing maintenance function, milliseconds increment, overflow to zero
+* @brief  gizTimerMs
+
+* millisecond timer maintenance function ,Millisecond increment , Overflow to zero
 
 * @param none
 * @return none
@@ -185,10 +197,12 @@ void gizTimerMs(void)
 }
 
 /**
-* @brief Read millisecond count
+* @brief gizGetTimerCount
+
+* Read system time, millisecond timer
 
 * @param none
-* @return millisecond count
+* @return System time millisecond
 */
 uint32_t gizGetTimerCount(void)
 {
@@ -196,7 +210,9 @@ uint32_t gizGetTimerCount(void)
 }
 
 /**
-* @brief MCU reset function
+* @brief mcuRestart
+
+* MCU Reset function
 
 * @param none
 * @return none
@@ -206,50 +222,86 @@ void mcuRestart(void)
     __set_FAULTMASK(1);
     NVIC_SystemReset();//复位
 }
+/**@} */
 
 /**
-* @brief Serial port write operation, send data to WiFi module
+* @brief TIMER_IRQ_FUN
+
+* Timer Interrupt handler function
+
+* @param none
+* @return none
+*/
+void TIMER_IRQ_FUN(void)
+{
+  gizTimerMs();
+}
+
+/**
+* @brief UART_IRQ_FUN
+
+* UART Serial interrupt function ，For Module communication
+
+* Used to receive serial port protocol data between WiFi module
+
+* @param none
+* @return none
+*/
+void UART_IRQ_FUN(void)
+{
+  uint8_t value = 0;
+  //value = USART_ReceiveData(USART2);//STM32 test demo
+  gizPutData(&value, 1);
+}
+
+
+/**
+* @brief uartWrite
+
+* Serial write operation, send data to the WiFi module
+
+* @param buf      : Data address
+* @param len       : Data length
 *
-* @param buf      : buf address
-* @param len      : buf length
-*
-* @return : Return effective data length;-1，return failure
+* @return : Not 0,Serial send success;
+*           -1，Input Param Illegal
 */
 int32_t uartWrite(uint8_t *buf, uint32_t len)
 {
-		uint8_t crc[1] = {0x55};
     uint32_t i = 0;
-	
+    
     if(NULL == buf)
     {
         return -1;
     }
-
-    for(i=0; i<len; i++)
-    {
-        USART_SendData(USART3, buf[i]);
-        while(USART_GetFlagStatus(USART3,USART_FLAG_TC)==RESET); //循环发送,直到发送完毕 
-
-        if(i >=2 && buf[i] == 0xFF)
-        {
-            USART_SendData(USART3, crc[0]);
-            while(USART_GetFlagStatus(USART3,USART_FLAG_TC)==RESET); //循环发送,直到发送完毕 
-        }
-    }
-
-#ifdef PROTOCOL_DEBUG
+    
+    #ifdef PROTOCOL_DEBUG
     GIZWITS_LOG("MCU2WiFi[%4d:%4d]: ", gizGetTimerCount(), len);
     for(i=0; i<len; i++)
     {
         GIZWITS_LOG("%02x ", buf[i]);
-
-        if(i >=2 && buf[i] == 0xFF)
-        {
-            GIZWITS_LOG("%02x ", 0x55);
-        }
     }
     GIZWITS_LOG("\n");
-#endif
-		
-		return len;
-}  
+    #endif
+
+    for(i=0; i<len; i++)
+    {
+        //USART_SendData(UART, buf[i]);//STM32 test demo
+        USART_SendData(USART3, buf[i]);
+        while(USART_GetFlagStatus(USART3,USART_FLAG_TC)==RESET); //循环发送,直到发送完毕 
+        //Serial port to achieve the function, the buf[i] sent to the module
+        if(i >=2 && buf[i] == 0xFF)
+        {
+          //Serial port to achieve the function, the 0x55 sent to the module
+          //USART_SendData(UART, 0x55);//STM32 test demo
+          USART_SendData(USART3, 0x55);
+          while(USART_GetFlagStatus(USART3,USART_FLAG_TC)==RESET); //循环发送,直到发送完毕 
+        }
+    }
+
+
+    
+    return len;
+}
+
+
