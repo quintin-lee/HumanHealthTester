@@ -142,7 +142,14 @@ void userHandle(void)
 		LCD_ShowNum(90,70,currentDataPoint.valuelow,3,24);
 		LCD_ShowNum(100,100,currentDataPoint.valuepulse,3,24);
     }
-	else if (Receive_ok)
+    else
+    {
+        currentDataPoint.valuetemperature = 38.0;
+        currentDataPoint.valuehigh = 0;
+        currentDataPoint.valuelow = 0;
+        currentDataPoint.valuepulse = 0;
+    }
+    if (Receive_ok)
 	{
 		u8 sum=0,i=0;
 		for(sum=0,i=0;i<(TEMP_data[3]+4);i++)//TEMP_data[3]=4
@@ -161,13 +168,6 @@ void userHandle(void)
         }
         Receive_ok=0;//处理数据完毕标志
 	}
-    else
-    {
-        currentDataPoint.valuetemperature = 38.0;
-        currentDataPoint.valuehigh = 0;
-        currentDataPoint.valuelow = 0;
-        currentDataPoint.valuepulse = 0;
-    }
  /*
     currentDataPoint.valuetemperature = ;//Add Sensor Data Collection
 

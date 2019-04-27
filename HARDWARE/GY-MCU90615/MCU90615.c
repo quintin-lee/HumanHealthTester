@@ -11,12 +11,12 @@ void MCU90615_Init(u32 bound)
 
 	
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC,ENABLE);      //使能GPIOC时钟
-	RCC_APB1PeriphClockCmd(RCC_APB2Periph_USART6,ENABLE);     //使能USART6时钟
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART6,ENABLE);     //使能USART6时钟
 
  	USART_DeInit(USART6);                                     //复位串口6
 	
-	GPIO_PinAFConfig(GPIOA,GPIO_PinSource6,GPIO_AF_USART6);  //GPIOC6复用为USART6
-	GPIO_PinAFConfig(GPIOA,GPIO_PinSource7,GPIO_AF_USART6);  //GPIOC7复用为USART6	
+	GPIO_PinAFConfig(GPIOC,GPIO_PinSource6,GPIO_AF_USART6);  //GPIOC6复用为USART6
+	GPIO_PinAFConfig(GPIOC,GPIO_PinSource7,GPIO_AF_USART6);  //GPIOC7复用为USART6	
 	
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;    //GPIOC6和GPIOC7初始化
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;              //?复用功能
@@ -45,13 +45,14 @@ void MCU90615_Init(u32 bound)
 	NVIC_Init(&NVIC_InitStructure);	
 
     memset(TEMP_data, 0, sizeof(TEMP_data));
-    memset(TEMP_data, 0, sizeof(TEMP_data));
 }
 
 void USART6_send_byte(uint8_t byte)
 {
-	while(USART_GetFlagStatus(USART6,USART_FLAG_TC)==RESET);//等待发送完成
-	USART6->DR=byte;	
+//	while(USART_GetFlagStatus(USART6,USART_FLAG_TC)==RESET);//等待发送完成
+//	USART6->DR=byte;
+    USART_SendData(USART6, byte);
+    while (USART_GetFlagStatus(USART6, USART_FLAG_TC) != SET);	
 }
 
 void USART6_Send_bytes(uint8_t *Buffer, uint8_t Length)
