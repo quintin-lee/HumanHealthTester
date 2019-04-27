@@ -41,6 +41,7 @@ int main(void)
 //	gizwitsSetMode(WIFI_AIRLINK_MODE);
 //	delay_ms(200);
 	MCU90615_SendCommand(0x45);  // 温度连续输出指令
+	delay_ms(500);
 	while(1)
 	{
         userHandle();//用户采集
