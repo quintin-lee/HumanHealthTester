@@ -129,7 +129,7 @@ int8_t gizwitsEventProcess(eventInfo_t *info, uint8_t *gizdata, uint32_t len)
 */
 void userHandle(void)
 {
-    if (wifi_sta && !MKB0803_ReadData((u8*)&(currentDataPoint.valuehigh), 
+    if (!MKB0803_ReadData((u8*)&(currentDataPoint.valuehigh), 
                      (u8*)&(currentDataPoint.valuelow), 
                      (u8*)&(currentDataPoint.valuepulse)))
     {
@@ -137,16 +137,16 @@ void userHandle(void)
 		LCD_ShowString(30,40,210,24,24,(u8*)"high:");	
 		LCD_ShowString(30,70,220,24,24,(u8*)"low:");
 		LCD_ShowString(30,100,230,24,24,(u8*)"heart:");
-		LCD_ShowNum(90,40,currentDataPoint.valuehigh[0],3,24);	
-		LCD_ShowNum(90,70,currentDataPoint.valuelow[0],3,24);
-		LCD_ShowNum(100,100,currentDataPoint.valuepulse[0],3,24);
+		LCD_ShowNum(90,40,currentDataPoint.valuehigh,3,24);	
+		LCD_ShowNum(90,70,currentDataPoint.valuelow,3,24);
+		LCD_ShowNum(100,100,currentDataPoint.valuepulse,3,24);
     }
     else
     {
         currentDataPoint.valuetemperature = 38.0;
-        *currentDataPoint.valuehigh = 0;
-        *currentDataPoint.valuelow = 0;
-        *currentDataPoint.valuepulse = 0;
+        currentDataPoint.valuehigh = 0;
+        currentDataPoint.valuelow = 0;
+        currentDataPoint.valuepulse = 0;
     }
  /*
     currentDataPoint.valuetemperature = ;//Add Sensor Data Collection
@@ -176,9 +176,9 @@ void userInit(void)
     
     /** Warning !!! DataPoint Variables Init , Must Within The Data Range **/ 
     currentDataPoint.valuetemperature = 37.0;
-    *currentDataPoint.valuehigh = 0;
-    *currentDataPoint.valuelow = 0;
-    *currentDataPoint.valuepulse = 0;
+    currentDataPoint.valuehigh = 0;
+    currentDataPoint.valuelow = 0;
+    currentDataPoint.valuepulse = 0;
 
 }
 

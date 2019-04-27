@@ -75,10 +75,22 @@ extern "C" {
 * @{
 */
 
-#define temperature_RATIO                         0.1
+#define high_RATIO                         1
+#define high_ADDITION                      0
+#define high_MIN                           0
+#define high_MAX                           255
+#define low_RATIO                         1
+#define low_ADDITION                      0
+#define low_MIN                           0
+#define low_MAX                           255
+#define pulse_RATIO                         1
+#define pulse_ADDITION                      0
+#define pulse_MIN                           0
+#define pulse_MAX                           255
+#define temperature_RATIO                         0.01
 #define temperature_ADDITION                      0
 #define temperature_MIN                           0
-#define temperature_MAX                           1000
+#define temperature_MAX                           10000
 /**@} */
 
 
@@ -268,10 +280,10 @@ typedef enum
 
 /** User Area Device State Structure */
 typedef struct {
+  uint32_t valuehigh;
+  uint32_t valuelow;
+  uint32_t valuepulse;
   float valuetemperature;
-  uint8_t valuehigh[1];
-  uint8_t valuelow[1];
-  uint8_t valuepulse[1];
 } dataPoint_t;
 
 
@@ -279,10 +291,10 @@ typedef struct {
 /** Corresponding protocol "4.9 Device MCU to the WiFi module to actively report the current state" in the device status "dev_status(11B)" */ 
 
 typedef struct {
+  uint8_t valuehigh;
+  uint8_t valuelow;
+  uint8_t valuepulse;
   uint16_t valuetemperature;
-  uint8_t valuehigh[1];
-  uint8_t valuelow[1];
-  uint8_t valuepulse[1];
 } devStatus_t; 
 
 
