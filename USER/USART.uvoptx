@@ -202,19 +202,65 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
+<<<<<<< HEAD
+          <LineNumber>134</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134248802</Address>
+=======
           <LineNumber>151</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
+<<<<<<< HEAD
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>C:\Users\Administrator\Desktop\姣曡\鏈烘櫤浜戝姞32\瀹為獙4 涓插彛瀹為獙\Gizwits\gizwits_product.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression></Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>140</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134248844</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>C:\Users\Administrator\Desktop\姣曡\鏈烘櫤浜戝姞32\瀹為獙4 涓插彛瀹為獙\Gizwits\gizwits_product.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression></Expression>
+        </Bp>
+        <Bp>
+          <Number>2</Number>
+          <Type>0</Type>
+          <LineNumber>36</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134247708</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>C:\Users\Administrator\Desktop\姣曡\鏈烘櫤浜戝姞32\瀹為獙4 涓插彛瀹為獙\USER\main.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\USART\main.c\36</Expression>
+        </Bp>
+=======
           <BreakIfRCount>0</BreakIfRCount>
           <Filename>..\HARDWARE\MKB803\MKB0803.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
       </Breakpoint>
       <WatchWindow1>
         <Ww>
@@ -403,6 +449,8 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+<<<<<<< HEAD
+=======
     <File>
       <GroupNumber>2</GroupNumber>
       <FileNumber>11</FileNumber>
@@ -415,6 +463,7 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
   </Group>
 
   <Group>
@@ -425,7 +474,11 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>3</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>11</FileNumber>
+=======
       <FileNumber>12</FileNumber>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -437,7 +490,11 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>12</FileNumber>
+=======
       <FileNumber>13</FileNumber>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -449,7 +506,11 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>13</FileNumber>
+=======
       <FileNumber>14</FileNumber>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -469,7 +530,11 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>4</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>14</FileNumber>
+=======
       <FileNumber>15</FileNumber>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -489,7 +554,11 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>5</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>15</FileNumber>
+=======
       <FileNumber>16</FileNumber>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -501,7 +570,11 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>16</FileNumber>
+=======
       <FileNumber>17</FileNumber>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -513,7 +586,11 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>17</FileNumber>
+=======
       <FileNumber>18</FileNumber>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -525,7 +602,11 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>18</FileNumber>
+=======
       <FileNumber>19</FileNumber>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -537,7 +618,11 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>19</FileNumber>
+=======
       <FileNumber>20</FileNumber>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -549,7 +634,11 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>20</FileNumber>
+=======
       <FileNumber>21</FileNumber>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -561,7 +650,11 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>21</FileNumber>
+=======
       <FileNumber>22</FileNumber>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -581,7 +674,11 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>6</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>22</FileNumber>
+=======
       <FileNumber>23</FileNumber>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -593,7 +690,11 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>23</FileNumber>
+=======
       <FileNumber>24</FileNumber>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -613,7 +714,11 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>7</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>24</FileNumber>
+=======
       <FileNumber>25</FileNumber>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -625,7 +730,11 @@
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>25</FileNumber>
+=======
       <FileNumber>26</FileNumber>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -637,7 +746,11 @@
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>26</FileNumber>
+=======
       <FileNumber>27</FileNumber>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

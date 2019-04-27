@@ -335,7 +335,11 @@
               <MiscControls></MiscControls>
               <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
+<<<<<<< HEAD
+              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\FWLIB\STM32F4xx_StdPeriph_Driver\inc;..\USER;..\HARDWARE\LED;..\HARDWARE\BEEP;..\HARDWARE\KEY;..\FWLIB\inc;..\HARDWARE\MKB803;..\HARDWARE\LCD;..\Gizwits;..\Utils;..\HARDWARE\USART2;..\HARDWARE\TIMER</IncludePath>
+=======
               <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\FWLIB\STM32F4xx_StdPeriph_Driver\inc;..\USER;..\HARDWARE\LED;..\HARDWARE\BEEP;..\HARDWARE\KEY;..\FWLIB\inc;..\HARDWARE\MKB803;..\HARDWARE\LCD;..\Gizwits;..\Utils;..\HARDWARE\USART2;..\HARDWARE\TIMER;..\HARDWARE\GY-MCU90615</IncludePath>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
             </VariousControls>
           </Cads>
           <Aads>
@@ -434,11 +438,14 @@
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\USART2\usart2.c</FilePath>
             </File>
+<<<<<<< HEAD
+=======
             <File>
               <FileName>MCU90615.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\GY-MCU90615\MCU90615.c</FilePath>
             </File>
+>>>>>>> 563e9ece64f247a5130dd1a36575cf777e980d97
           </Files>
         </Group>
         <Group>
