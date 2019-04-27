@@ -19,6 +19,7 @@
 #include "MKB0803.h"
 #include "lcd.h"
 #include "usart2.h"
+#include "MCU90615.h"
 
 static uint32_t timerMsCount;
 
@@ -141,6 +142,25 @@ void userHandle(void)
 		LCD_ShowNum(90,70,currentDataPoint.valuelow,3,24);
 		LCD_ShowNum(100,100,currentDataPoint.valuepulse,3,24);
     }
+	else if (Receive_ok)
+	{
+		u8 sum=0,i=0;
+		for(sum=0,i=0;i<(TEMP_data[3]+4);i++)//TEMP_data[3]=4
+			sum+=TEMP_data[i];
+		if(sum==TEMP_data[i])//校验和判断
+        {
+            currentDataPoint.valuetemperature=(float)((TEMP_data[4]<<8)|TEMP_data[5])/100;//得到真实温度
+            //data[0]=(TEMP_data[4]<<8)|TEMP_data[5];//放大100倍的物体温度
+            //TA=(float)((TEMP_data[6]<<8)|TEMP_data[7])/100;//得到真实温度
+            //data[1]=(TEMP_data[6]<<8)|TEMP_data[7];//放大100倍的环境温度
+            //send_out(data,2,0x45);//上传给上位机
+            LCD_ShowString(30,130,230,24,24,(u8*)"Temperature:");
+            LCD_ShowNum(174,130,(int)((TEMP_data[4]<<8)|TEMP_data[5])/100,2,24);
+            LCD_ShowString(198,130,230,24,24,(u8*)".");
+            LCD_ShowNum(210,130,(int)((TEMP_data[4]<<8)|TEMP_data[5])%100,2,24);            
+        }
+        Receive_ok=0;//处理数据完毕标志
+	}
     else
     {
         currentDataPoint.valuetemperature = 38.0;

@@ -8,7 +8,7 @@
 #include "lcd.h"
 #include "gizwits_product.h"
 #include "timer.h"
-	 
+#include "MCU90615.h"
 
 //ALIENTEK 探索者STM32F407开发板 实验4
 //串口通信实验 -库函数版本
@@ -30,6 +30,7 @@ int main(void)
 	uart_init(115200);	//串口初始化波特率为115200
 	LED_Init();		  		//初始化与LED连接的硬件接口  
 	MKB0803_Init(115200);
+	MCU90615_Init(115200);
 	TIM3_Int_Init(10-1,8400-1);
 	
 	LCD_Init();           //初始化LCD FSMC接口
@@ -39,6 +40,7 @@ int main(void)
 	gizwitsInit();//协议初始化
 //	gizwitsSetMode(WIFI_AIRLINK_MODE);
 //	delay_ms(200);
+	MCU90615_SendCommand(0x45);  // 温度连续输出指令
 	while(1)
 	{
         userHandle();//用户采集
